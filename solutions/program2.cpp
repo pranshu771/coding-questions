@@ -14,8 +14,8 @@ void solve(int *arr,int n,int k) {
             cout<<start<<" "<<end;
             return ;
         }
-        else if(sum>k) {
-            while(sum>=k&&start<=end) {
+        else if(sum>k&&start<=end) {
+            while(sum>=k) {
                 sum=sum-arr[start-1];
                 start++;
                 if(sum==k) {
