@@ -1,27 +1,34 @@
-//solution to problem2 brute force solution
+//solution to problem2 with sliding window method
 
 #include<iostream>
-#include<bits/stdc++.h>
 using namespace std;
 
-void solve(int *arr,int k,int n) {
+void solve(int *arr,int n,int k) {
+    int sum=0;
+    int start=1;
+    int end=0;
     for(int i=0;i<n;i++) {
-        int sum=0;
-        for(int j=i;j<n;j++) {
-            sum+=arr[j];
-            if(sum<k) {
-
-            }
-            else if(sum==k) {
-                cout<<i+1<<" "<<j+1;
-                return ;
-            }
-            else {
-                break;
+        sum+=arr[i];
+        end++;
+        if(sum==k) {
+            cout<<start<<" "<<end;
+            return ;
+        }
+        else if(sum>k) {
+            while(sum>=k) {
+                sum=sum-arr[start-1];
+                start++;
+                if(sum==k) {
+                    cout<<start<<" "<<end;
+                    return ;
+                }
             }
         }
+        else {
+
+        }
     }
-    cout<<-1;
+    cout<<"-1";
     return ;
 }
 
@@ -29,15 +36,13 @@ int main() {
     int t;
     cin>>t;
     while(t--) {
-        int n;
-        cin>>n;
-        int sum;
-        cin>>sum;
+        int n,k;
+        cin>>n>>k;
         int *arr=new int[n];
         for(int i=0;i<n;i++) {
             cin>>arr[i];
         }
-        solve(arr,sum,n);
+        solve(arr,n,k);
         cout<<endl;
     }
 }
