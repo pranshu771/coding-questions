@@ -6,7 +6,8 @@ int solve(int *arr,int *dep,int n) {
     sort(arr,arr+n);
     sort(dep,dep+n);
 
-    int res,plt,i=1;
+    int res,plt,i;
+    res=plt=i=1;
     int j=0;
     while(i<n&&j<n) {
         if(arr[i]<=dep[j]) {
