@@ -1,31 +1,84 @@
-//Given an unsorted array having both negative and positive integers. The task is place all negative element at the end of array without changing the order of positive element and negative element.
-
 #include<iostream>
 using namespace std;
 #include<bits/stdc++.h>
 
 void solve(int *arr,int n) {
-    int *temp=new int[n];
-    int j=0;
+    vector<int> v1;
+    vector<int> v2;
+    vector<int> out;
     for(int i=0;i<n;i++) {
         if(arr[i]>=0) {
-            temp[j++]=arr[i];
+            v1.push_back(arr[i]);
+        }
+        else {
+            v2.push_back(arr[i]);
         }
     }
-    for(int i=0;i<n;i++) {
-        if(arr[i]<0) {
-            temp[j++]=arr[i];
-        }
-    }
-    for(int i=0;i<n;i++) {
-        arr[i]=temp[i];
-    }
-    for(int i=0;i<n;i++) {
-        cout<<arr[i]<<" ";
-    }
-    cout<<endl;
+    // for(int i=0;i<v1.size();i++) {
+    //     cout<<v1[i]<<" ";
+    // }
+    // cout<<endl;
+    // for(int i=0;i<v2.size();i++) {
+    //     cout<<v2[i]<<" ";
+    // }
     
-
+    int count=0;
+    int i1=0;
+    int i2=0;
+    if(arr[0]>=0) {
+        while(i1<v1.size()&&i2<v2.size()) {
+            if(count%2==0) {
+                out.push_back(v1[i1]);
+                i1++;
+            }
+            else {
+                out.push_back(v2[i2]);
+                i2++;
+            }
+            count++;
+        }
+        if(i1<v1.size()) {
+            while(i1<v1.size()) {
+                out.push_back(v1[i1]);
+                i1++;
+            }
+        }
+        if(i2<v2.size()) {
+            while(i2<v2.size()) {
+                out.push_back(v2[i2]);
+                i2++;
+            }
+        }
+    }
+    else {
+        while(i1<v1.size()&&i2<v2.size()) {
+            if(count%2==1) {
+                out.push_back(v1[i1]);
+                i1++;
+            }
+            else {
+                out.push_back(v2[i2]);
+                i2++;
+            }
+            count++;
+        }
+        if(i1<v1.size()) {
+            while(i1<v1.size()) {
+                out.push_back(v1[i1]);
+                i1++;
+            }
+        }
+        if(i2<v2.size()) {
+            while(i2<v2.size()) {
+                out.push_back(v2[i2]);
+                i2++;
+            }
+        }
+    }
+    
+    for(int i=0;i<out.size();i++) {
+        cout<<out[i]<<" ";
+    }
 }
 
 int main() {
@@ -39,5 +92,6 @@ int main() {
             cin>>arr[i];
         }
         solve(arr,n);
+        cout<<endl;
     }
 }
