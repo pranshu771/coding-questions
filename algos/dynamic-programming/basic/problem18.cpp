@@ -2,24 +2,20 @@
 using namespace std;
 #include<bits/stdc++.h>
 
-int maximumCost(int *arr,int n,int len,map<int,int> m) {
-    if(len<=0) {
-        return 0;
-    }
+int maximumCost(int *arr,int n,int length) {
+    int dp[n]={0};
+
+    dp[0]=0;
     
-    int maximum=INT_MIN;
-
-    if(m.find(len)!=m.end()) {
-        maximum=max(maximum,m[len]);
+    for(int i=1;i<=n;i++) {
+        int maximum=INT_MIN;
+        for(int j=0;j<i;j++) {
+            maximum=max(maximum,arr[j]+dp[i-j-1]);
+        }
+        dp[i]=maximum;
     }
+    return dp[n];
 
-    for(int i=1;i<=len;i++) {
-        maximum=max(maximum,arr[i-1] + maximumCost(arr,n,len-i,m));
-    }
-
-    return maximum;
-
-    
 }
 
 int main() {
@@ -36,7 +32,7 @@ int main() {
         }
 
         map<int,int> m;
-        int ans=maximumCost(arr,n,n,m);
+        int ans=maximumCost(arr,n,n);
         cout<<ans<<endl;
     }
 }
