@@ -1,26 +1,26 @@
 #include<iostream>
 #include<bits/stdc++.h>
 using namespace std;
+#define M 1000000007
 
-int count(int n,int diff,map<pair<int,int>,int> m) {
-    if(abs(diff)>n) {
-        return 0;
+
+
+  
+
+long long int nCr(int n,int r) {
+    int dp[r+1];
+    dp[0]=1;
+
+    for(int i=1;i<=r;i++) {
+        dp[i]=((dp[i-1]%M)*((n+1-i)%M)/i)%M;
     }
+    return dp[r]%M;
+}
 
-    if(n==1&&diff==0) {
-        return 2;
-    }
+long long int count(int n) {
 
-    if(n==1&&abs(diff)==1) {
-        return 1;
-    }
-
-    if(m.find(make_pair(n,diff))!=m.end()) {
-        return m[make_pair(n,diff)];
-    }
-
-    //return 2*count(n-1,diff)+count(n-1,diff+1)+count(n-1,diff-1,m);
-    return m[make_pair(n,diff)] = 2*count(n-1,diff,m) + count(n-1,diff-1,m) + count(n-1,diff+1,m); 
+    return nCr(2*n,n)%M;
+    
 }
 
 int main() {
@@ -33,7 +33,7 @@ int main() {
 
         map<pair<int,int>,int> m;
 
-        int ans=count(n,0,m);
+        long long int ans=count(n);
         cout<<ans<<endl;
 
     }
