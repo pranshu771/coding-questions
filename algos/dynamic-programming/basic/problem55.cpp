@@ -2,14 +2,26 @@
 using namespace std;
 
 int maximumSegments(int n,int a,int b,int c) {
-    if(n==0) {
-        return 1;
-    }
-    else {
-        return 0;
-    }
+    int dp[n+1]={-1};
+    memset(dp,-1,sizeof(dp));
+    dp[0]=0;
 
-    return 1 + max(maximumSegments(n-a,a,b,c),max(maximumSegments(n-b,a,b,c),maximumSegments(n-c,a,b,c)));
+    for(int i=0;i<=n;i++) {
+
+        if(dp[i]==-1)
+        continue;
+
+        if(i+a<=n) {
+            dp[i+a]=max(dp[i+a],dp[i]+1);
+        }
+        if(i+b<=n) {
+            dp[i+b]=max(dp[i+b],dp[i]+1);
+        }
+        if(i+c<=n) {
+            dp[i+c]=max(dp[i+c],dp[i+1]);
+        }
+    }    
+    return dp[n];
 } 
 
 int main() {
